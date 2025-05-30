@@ -1,0 +1,14 @@
+# (paste the render.yaml contents and save)
+echo -e "flask\ngunicorn" > requirements.txt
+nano render.yaml
+services:
+  - type: web
+    name: trading-dashboard
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: gunicorn dashboard.web_dashboard:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9
+
