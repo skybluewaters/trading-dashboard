@@ -3,36 +3,42 @@
 <head>
     <title>Trade Log Dashboard</title>
     <meta http-equiv="refresh" content="30">
-    <style>
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-    </style>
-</head>
-<body>
-    <h1>Live Prices</h1>
-    <button onclick="location.reload()">Manual Refresh</button>
-    <table>
-        <tr>
-            <th>Asset</th>
-            <th>Latest Price</th>
-            <th>Chart</th>
-        </tr>
-        {% for asset, price in prices.items() %}
-        <tr>
-      <!DOCTYPE html>
-<html>
-<head>
-    <title>Trade Log Dashboard</title>
-    <meta http-equiv="refresh" content="30">
 </head>
 <body>
     <h1>Trade Log Dashboard</h1>
 
-    <form method="get" action="/">
-        <label for="asset">Filter by asset:</label>
-        <input type="text" id="asset" name="asset" value="{{ filter_asset }}">
-        <input type="submit" value="Filter">
+    <form method="get">
+        <label>Filter by asset:</label>
+        <input type="text" name="asset" value="{{ filter_asset }}">
+        <button type="submit">Apply</button>
     </form>
+
+    <p>Auto-refreshes every 30 seconds</p>
+
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>Asset</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Order ID</th>
+            <th>Fee</th>
+            <th>Status</th>
+        </tr>
+        {% for trade in trades %}
+        <tr>
+            <td>{{ trade[0] }}</td>
+            <td>{{ trade[1] }}</td>
+            <td>{{ trade[2] }}</td>
+            <td>{{ trade[3] }}</td>
+            <td>{{ trade[4] }}</td>
+            <td>{{ trade[5] }}</td>
+            <td>{{ trade[6] }}</td>
+            <td>FILLED</td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Live Prices</h2>
     <button onclick="location.reload()">Manual Refresh</button>
@@ -50,29 +56,6 @@
         </tr>
         {% endfor %}
     </table>
-
-    <h2>Trade Log</h2>
-    <table border="1">
-        <tr>
-            <th>Timestamp</th>
-            <th>Asset</th>
-            <th>Side</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Order ID</th>
-            <th>Fee</th>
-            <th>Status</th>
-        </tr>
-        {% for row in trades %}
-        <tr>
-            {% for col in row %}
-            <td>{{ col }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-
-    <p>Auto-refreshes every 30 seconds</p>
 </body>
 </html>
 
