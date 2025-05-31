@@ -1,4 +1,4 @@
-from flask import Flask, render_template("index.html",prices=latest_prices), request
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify, request
 import csv
 
 app = Flask(__name__)
