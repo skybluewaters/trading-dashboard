@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trade Log Dashboard</title>
+    <meta http-equiv="refresh" content="30">
+</head>
+<body>
+    <h1>Trade Log Dashboard</h1>
+
+    <form method="get" action="/">
+        <label for="asset">Filter by asset:</label>
+        <input type="text" id="asset" name="asset" value="{{ filter_asset }}">
+        <input type="submit" value="Filter">
+        <button type="button" onclick="location.reload()">Manual Refresh</button>
+    </form>
+
+    <h2>Live Prices</h2>
+    <table border="1">
+        <tr>
+            <th>Asset</th>
+            <th>Latest Price</th>
+            <th>Chart</th>
+        </tr>
+        {% for asset, price in prices.items() %}
+        <tr>
+            <td>{{ asset }}</td>
+            <td>{{ price }}</td>
+            <td><a href="/chart/{{ asset }}">View Chart</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Trade Log</h2>
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>Asset</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Order ID</th>
+            <th>Fee</th>
+            <th>Status</th>
+        </tr>
+        {% for trade in trades %}
+        <tr>
+            <td>{{ trade[0] }}</td>
+            <td>{{ trade[1] }}</td>
+            <td>{{ trade[2] }}</td>
+            <td>{{ trade[3] }}</td>
+            <td>{{ trade[4] }}</td>
+            <td>{{ trade[5] }}</td>
+            <td>{{ trade[6] }}</td>
+            <td>{{ trade[7] if trade|length > 7 else 'FILLED' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
