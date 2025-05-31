@@ -2,48 +2,16 @@
 <html>
 <head>
     <title>{{ asset }} Chart</title>
-    <meta http-equiv="refresh" content="30">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>{{ asset }} Historical Chart</h1>
-    <button onclick="location.reload()">Manual Refresh</button>
-    <canvas id="priceChart" width="800" height="400"></canvas>
-    <script>
-        const prices = {{ prices|tojson }};
-        const sma = {{ sma|tojson }};
-        const ema = {{ ema|tojson }};
-        const rsi = {{ rsi|tojson }};
-        const signals = {{ signals|tojson }};
-
-        const ctx = document.getElementById('priceChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: prices.map((_, i) => i),
-                datasets: [
-                    { label: 'Price', data: prices, borderColor: 'blue', fill: false },
-                    { label: 'SMA', data: sma, borderColor: 'orange', fill: false },
-                    { label: 'EMA', data: ema, borderColor: 'green', fill: false },
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: { x: { title: { display: true, text: 'Time Step' } } }
-            }
-        });
-    </script>
-    <h2>Recent Trades for {{ asset }}</h2>
-    <table border="1">
-        <tr>
-            <th>Timestamp</th><th>Action</th><th>Qty</th><th>Price</th><th>Fee</th><th>Order ID</th>
-        </tr>
-        {% for trade in trades %}
-        <tr>
-            <td>{{ trade[0] }}</td><td>{{ trade[2] }}</td><td>{{ trade[3] }}</td><td>{{ trade[4] }}</td><td>{{ trade[5] }}</td><td>{{ trade[6] }}</td>
-        </tr>
+    <h1>Chart for {{ asset }}</h1>
+    <p>Simple price list:</p>
+    <ul>
+        {% for price in prices %}
+        <li>{{ price }}</li>
         {% endfor %}
-    </table>
+    </ul>
+    <a href="/">← Back to Dashboard</a>
 </body>
 </html>
 

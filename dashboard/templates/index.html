@@ -19,6 +19,31 @@
         </tr>
         {% for asset, price in prices.items() %}
         <tr>
+      <!DOCTYPE html>
+<html>
+<head>
+    <title>Trade Log Dashboard</title>
+    <meta http-equiv="refresh" content="30">
+</head>
+<body>
+    <h1>Trade Log Dashboard</h1>
+
+    <form method="get" action="/">
+        <label for="asset">Filter by asset:</label>
+        <input type="text" id="asset" name="asset" value="{{ filter_asset }}">
+        <input type="submit" value="Filter">
+    </form>
+
+    <h2>Live Prices</h2>
+    <button onclick="location.reload()">Manual Refresh</button>
+    <table border="1">
+        <tr>
+            <th>Asset</th>
+            <th>Latest Price</th>
+            <th>Chart</th>
+        </tr>
+        {% for asset, price in prices.items() %}
+        <tr>
             <td>{{ asset }}</td>
             <td>{{ price }}</td>
             <td><a href="/chart/{{ asset }}">View Chart</a></td>
@@ -26,13 +51,8 @@
         {% endfor %}
     </table>
 
-    <h2>Trade Log Dashboard</h2>
-    <form method="get" action="/chart">
-        <label>Filter by asset: <input type="text" name="asset" /></label>
-        <input type="submit" value="View" />
-    </form>
-
-    <table>
+    <h2>Trade Log</h2>
+    <table border="1">
         <tr>
             <th>Timestamp</th>
             <th>Asset</th>
@@ -41,21 +61,19 @@
             <th>Price</th>
             <th>Order ID</th>
             <th>Fee</th>
+            <th>Status</th>
         </tr>
         {% for row in trades %}
         <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-            <td>{{ row[6] }}</td>
-            <td>{{ row[5] }}</td>
+            {% for col in row %}
+            <td>{{ col }}</td>
+            {% endfor %}
         </tr>
         {% endfor %}
     </table>
 
-    <p><em>Auto-refreshes every 30 seconds</em></p>
+    <p>Auto-refreshes every 30 seconds</p>
 </body>
 </html>
+
 
