@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Trading Dashboard</title>
+    <title>Trade Log Dashboard</title>
     <meta http-equiv="refresh" content="30">
+    <style>
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    </style>
 </head>
 <body>
     <h1>Live Prices</h1>
     <button onclick="location.reload()">Manual Refresh</button>
-    <table border="1">
+    <table>
         <tr>
             <th>Asset</th>
             <th>Latest Price</th>
@@ -21,6 +25,37 @@
         </tr>
         {% endfor %}
     </table>
+
+    <h2>Trade Log Dashboard</h2>
+    <form method="get" action="/chart">
+        <label>Filter by asset: <input type="text" name="asset" /></label>
+        <input type="submit" value="View" />
+    </form>
+
+    <table>
+        <tr>
+            <th>Timestamp</th>
+            <th>Asset</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Order ID</th>
+            <th>Fee</th>
+        </tr>
+        {% for row in trades %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[6] }}</td>
+            <td>{{ row[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><em>Auto-refreshes every 30 seconds</em></p>
 </body>
 </html>
 
