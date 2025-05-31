@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template("index.html",prices=latest_prices), request
 import csv
 
 app = Flask(__name__)
